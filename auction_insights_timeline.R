@@ -14,10 +14,15 @@ data$`Impression share` = as.numeric(sub("%", "", data$`Impression share`))/100
 data$Month = sub(" ", "-", data$Month)
 data$Month = as.Date(paste("01-", data$Month, sep = ""), format = "%d-%B-%Y")
 # delete IS<.1 and sort desc by name
-data = arrange(na.omit(data), desc(`Month`))
+data = arrange(na.omit(data), desc(`Display URL domain`))
 
 # ==== Layout ====
-lin_color<-scale_color_manual(values=c("#d8122a","#f1961e", "#00a1bc","#40fdad", "#000000"))
+lin_color<-scale_color_manual(values=c(
+  "#d8122a","#f1961e", "#00a1bc","#00aa5a", 
+  "#61193a", "#e65f2d","#333333", "#40fdad",
+  "#00596b", "#000000",
+  "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000",
+  "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"))
 style <- list(theme_minimal(), 
               lin_color, 
               theme(axis.title.x=element_blank(), 
