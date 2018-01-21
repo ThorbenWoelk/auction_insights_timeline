@@ -14,17 +14,19 @@ data$`Impression share` = as.numeric(sub("%", "", data$`Impression share`))/100
 data$Month = sub(" ", "-", data$Month)
 data$Month = as.Date(paste("01-", data$Month, sep = ""), format = "%d-%B-%Y")
 # delete IS<.1 and sort desc by name
-data = arrange(na.omit(data), desc(`Display URL domain`))
+data <- na.omit(data[order(data$`Display URL domain`, decreasing = FALSE),])
+# order URL levels reverse order alphabetically
+data$`Display URL domain` <- factor(data$`Display URL domain`, levels = rev(unique(data$`Display URL domain`)))
+
 
 # ==== Layout ====
 lin_color<-scale_color_manual(values=c(
-  "#d8122a","#f1961e", "#00a1bc","#00aa5a", 
-  "#61193a", "#e65f2d","#333333", "#40fdad",
-  "#00596b", "#000000",
+  "#40fdad", "#333333", "#d8122a","#f1961e", "#00a1bc", "#00aa5a", 
+  "#61193a", "#e65f2d", "#00596b", "#000000",
   "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000",
   "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000", "#000000"))
-style <- list(theme_minimal(), 
-              lin_color, 
+style <- list(theme_minimal(),
+              lin_color,
               theme(axis.title.x=element_blank(), 
                     axis.title.y=element_text(size=10, vjust = 3, family = "DINPro-Regular"),
                     legend.text = element_text(size=10, family = "DINPro-Regular"),
