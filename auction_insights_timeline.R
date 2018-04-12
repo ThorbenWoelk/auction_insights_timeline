@@ -5,18 +5,25 @@ library(dplyr)
 library(extrafont) # the first time you are using this, you need to run 'font_import()'
 loadfonts()
 
-data <- read_csv("data.csv", skip = 2) # make sure the data contains one header row only, holding the column names
+data <- read_csv("data.csv", skip = 0) # download from AdWords interface in CSV format with month as segment and excluding top and summary rows
 
 # ==== Preliminary data cleaning ====
 # convert IS strings to percentages
 data$`Impression share` = as.numeric(sub("%", "", data$`Impression share`))/100
+# order URL levels reverse order alphabetically
+data$`Display URL domain` <- factor(data$`Display URL domain`, levels = rev(unique(data$`Display URL domain`)))
+# replace "You" with brand name 
+levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="You"] <- "CHANEL"
+
+# exclude some competitors?
+#levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="exclude.com"] <- NA 
+
+
 # convert month strings to date
 data$Month = sub(" ", "-", data$Month)
 data$Month = as.Date(paste("01-", data$Month, sep = ""), format = "%d-%B-%Y")
 # delete IS<.1 and sort desc by name
 data <- na.omit(data[order(data$`Display URL domain`, decreasing = FALSE),])
-# order URL levels reverse order alphabetically
-data$`Display URL domain` <- factor(data$`Display URL domain`, levels = rev(unique(data$`Display URL domain`)))
 
 
 # ==== Layout ====
@@ -42,11 +49,12 @@ style <- list(theme_minimal(),
 
 # ==== Plotting ====
 
-pdf(file="auction_insights.pdf", width = 7, height = 3)
+pdf(file="auction_insights.pdf", width = 8, height = 3)
 ggplot() + 
-  geom_line(aes(y = data$`Impression share`, x = data$Month, colour = data$`Display URL domain`), size = 0.5) + 
+  geom_line(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 0.5) + # set own brand as reference category
+  geom_point(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 1) + # set own brand as reference category
   style + 
   ylab("Impression Share") + 
   scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%b-%y") + 
-  scale_y_continuous(breaks = seq(0.1, 1, 0.1))
+  scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent)
 dev.off()
