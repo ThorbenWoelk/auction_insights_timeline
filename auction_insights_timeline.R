@@ -2,8 +2,8 @@ library(readr)
 library(ggplot2)
 library(scales)
 library(dplyr)
-library(extrafont) # the first time you are using this, you need to run 'font_import()'
-loadfonts()
+# library(extrafont) # Extrafont let's you change the font types in the output plot. The first time you are using this, you need to run 'font_import()'
+# loadfonts() # uncomment to use different font types you can specify below
 
 data <- read_csv("data.csv", skip = 0) # download from AdWords interface in CSV format with month as segment and excluding top and summary rows
 
@@ -35,10 +35,10 @@ lin_color<-scale_color_manual(values=c(
 style <- list(theme_minimal(),
               lin_color,
               theme(axis.title.x=element_blank(), 
-                    axis.title.y=element_text(size=10, vjust = 3, family = "DINPro-Regular"),
-                    legend.text = element_text(size=10, family = "DINPro-Regular"),
+                    # axis.title.y=element_text(size=10, vjust = 3, family = "DINPro-Regular"), # uncomment to specify a different font type for title axis y
+                    # legend.text = element_text(size=10, family = "DINPro-Regular"), # uncomment to specify a different font type for text in legend
                     legend.title = element_blank(),
-                    axis.text.x = element_text(size=8, vjust = 3, family = "DINPro-Regular"),
+                    # axis.text.x = element_text(size=8, vjust = 3, family = "DINPro-Regular"), # uncomment to specify a different font type for text on x axis
                     plot.title = element_text(hjust = 0.4),
                     panel.grid.major.x = element_blank(),
                     panel.grid.minor.x = element_blank(),
