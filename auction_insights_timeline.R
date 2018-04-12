@@ -13,7 +13,7 @@ data$`Impression share` = as.numeric(sub("%", "", data$`Impression share`))/100
 # order URL levels reverse order alphabetically
 data$`Display URL domain` <- factor(data$`Display URL domain`, levels = rev(unique(data$`Display URL domain`)))
 # replace "You" with brand name 
-levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="You"] <- "CHANEL"
+levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="You"] <- "CHANEL" ##### REPLACE "CHANEL" WITH YOUR BRAND NAME HERE
 
 # exclude some competitors?
 #levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="exclude.com"] <- NA 
@@ -49,12 +49,13 @@ style <- list(theme_minimal(),
 
 # ==== Plotting ====
 
-pdf(file="auction_insights.pdf", width = 8, height = 3)
+pdf(file="auction_insights.pdf", width = 8, height = 3) #### ADJUST HEIGHT AND WIDTH OF THE PLOT HERE
 ggplot() + 
-  geom_line(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 0.5) + # set own brand as reference category
-  geom_point(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 1) + # set own brand as reference category
+  geom_line(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 0.5) +  ##### REPLACE "CHANEL" WITH YOUR BRAND NAME HERE
+  geom_point(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 1) +  ##### REPLACE "CHANEL" WITH YOUR BRAND NAME HERE
   style + 
   ylab("Impression Share") + 
   scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%b-%y") + 
   scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent)
 dev.off()
+
