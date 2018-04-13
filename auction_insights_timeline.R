@@ -12,8 +12,13 @@ data <- read_csv("data.csv", skip = 0) # download from AdWords interface in CSV 
 data$`Impression share` = as.numeric(sub("%", "", data$`Impression share`))/100
 # order URL levels reverse order alphabetically
 data$`Display URL domain` <- factor(data$`Display URL domain`, levels = rev(unique(data$`Display URL domain`)))
+<<<<<<< HEAD
 # replace "You" with brand name
 levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="You"] <- "MYBRAND" ##### REPLACE "MYBRAND" WITH YOUR BRAND NAME HERE
+=======
+# replace "You" with brand name 
+levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="You"] <- "CHANEL" ##### REPLACE "CHANEL" WITH YOUR BRAND NAME HERE
+>>>>>>> 1cf594d0020a49410e6d7498e758df0b3efd9bc8
 
 # exclude some competitors?
 #levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="exclude.com"] <- NA
@@ -50,6 +55,7 @@ style <- list(theme_minimal(),
 # ==== Plotting ====
 
 pdf(file="auction_insights.pdf", width = 8, height = 3) #### ADJUST HEIGHT AND WIDTH OF THE PLOT HERE
+<<<<<<< HEAD
 ggplot() +
   geom_line(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "MYBRAND")), size = 0.5) +  ##### REPLACE "MYBRAND" WITH YOUR BRAND NAME HERE
   geom_point(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "MYBRAND")), size = 1) +  ##### REPLACE "MYBRAND" WITH YOUR BRAND NAME HERE
@@ -58,3 +64,14 @@ ggplot() +
   scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%b-%y") +
   scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent)
 dev.off()
+=======
+ggplot() + 
+  geom_line(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 0.5) +  ##### REPLACE "CHANEL" WITH YOUR BRAND NAME HERE
+  geom_point(aes(y = data$`Impression share`, x = data$Month, colour = relevel(data$`Display URL domain`, ref = "CHANEL")), size = 1) +  ##### REPLACE "CHANEL" WITH YOUR BRAND NAME HERE
+  style + 
+  ylab("Impression Share") + 
+  scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%b-%y") + 
+  scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent)
+dev.off()
+
+>>>>>>> 1cf594d0020a49410e6d7498e758df0b3efd9bc8
