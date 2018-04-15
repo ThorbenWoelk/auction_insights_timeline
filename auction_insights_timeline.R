@@ -2,13 +2,14 @@
 #
 # PREREQUISITES
 # =============
-# LIBRARIES: ggplot2, dplyr, scales
+# LIBRARIES: ggplot2, dplyr, scales, readr
 # DATA: An auction insights CSV file segmented by month and saved as 'data.csv' within the same folder as this code file.
 # REFERENCE BRAND: Specify the brand name which replaces the initial "You" in the raw data. 
 # This will be used as a reference category and plotted in green.  
 brand.name <- "MYBRAND" # REPLACE WITH YOUR BRAND NAME HERE
 
 # import libraries
+library(readr)
 library(ggplot2)
 library(scales)
 library(dplyr)
@@ -20,7 +21,7 @@ library(dplyr)
 
 # import data
 data.file <- "data.csv"
-data <- read.csv(data.file, skip = 0) # download from AdWords interface in CSV format with month as segment and excluding top and summary rows
+data <- read_csv(data.file, skip = 0) # download from AdWords interface in CSV format with month as segment and excluding top and summary rows
 
 
 # Preliminary data cleaning
