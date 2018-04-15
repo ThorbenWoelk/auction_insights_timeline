@@ -6,7 +6,7 @@
 # DATA: An auction insights CSV file segmented by month and saved as 'data.csv' within the same folder as this code file.
 # REFERENCE BRAND: Specify the brand name which replaces the initial "You" in the raw data. 
 # This will be used as a reference category and plotted in green.  
-brand.name <- "MYBRAND" # REPLACE WITH YOUR BRAND NAME HERE
+brand.name <- "You" # REPLACE WITH YOUR BRAND NAME HERE
 
 # import libraries
 library(readr)

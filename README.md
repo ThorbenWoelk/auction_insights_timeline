@@ -10,7 +10,7 @@ In order to make it run smoothly, just follow the short guide below.
 - scales
 - dplyr
 
-2. In order to set your own brand as a reference category in the plot, open the 'auction_insights_timeline.R' file and adjust all rows where the comment says `##### REPLACE "MYBRAND" WITH YOUR BRAND NAME HERE`.
+2. In order to set your own brand as a reference category in the plot, open the 'auction_insights_timeline.R' file and adjust the first uncommented row where the comment says `# REPLACE WITH YOUR BRAND NAME HERE`. (If you are fine with the AdWords default of 'You', you can actually skip this step.)
 
 3. From the AdWords interface, download the auction insights data for the time range of interest. **Make sure this is in CSV format with month as segment and excluding top and summary rows** (just click on 'more options' in order to make those setting). Save it as 'data.csv' in the same folder as the R code file.
 
