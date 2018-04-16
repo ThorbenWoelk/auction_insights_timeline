@@ -1,7 +1,7 @@
 Plotting a Timeline from AdWords Auction Insights Data
 ======================================================
 
-This R code snippet allows to plot a timeline from Google AdWords Auction Insights data.
+This R code snippet allows you to plot a timeline from Google AdWords Auction Insights data.
 In order to make it run smoothly, just follow the short guide below.
 
 1. The following packages have to be installed using the `install.packages()` command in your R console:  
