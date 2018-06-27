@@ -30,15 +30,15 @@ data <- read_csv(data.file, skip = 0) # download from AdWords interface in CSV f
 # convert Impression share strings to percentages
 data$`Impression share` = as.numeric(sub("%", "", data$`Impression share`))/100
 # order URL levels reverse order alphabetically
-data$`Display URL domain` <- factor(data$`Display URL domain`, 
-                                    levels = rev(unique(data$`Display URL domain`)))
+data$`Shop display name` <- factor(data$`Shop display name`, 
+                                    levels = rev(unique(data$`Shop display name`)))
 
 # replace "You" with brand name
-levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="You"] <- brand.name
+levels(data$`Shop display name`)[levels(data$`Shop display name`)=="You"] <- brand.name
 
 
 # EXCLUDE COMPETITORS
-#levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="exclude.com"] <- NA
+#levels(data$`Shop display name`)[levels(data$`Shop display name`)=="exclude.com"] <- NA
 
 
 # convert month strings to date
@@ -79,14 +79,16 @@ style <- list(theme_minimal(),
 # ADJUST HEIGHT AND WIDTH OF THE PLOT BELOW
 pdf(file="auction_insights.pdf", width = 8, height = 3) 
 
-ggplot(data = data, aes(y = data$`Impression share`, 
+final_plot <- ggplot(data = data, aes(y = data$`Impression share`, 
            x = Month, 
-           colour = relevel(data$`Display URL domain`, ref = brand.name))) +
+           colour = relevel(data$`Shop display name`, ref = brand.name))) +
   geom_line(size = 0.5) +  
   geom_point(size = 1) +  
   style +
   ylab("Impression Share") +
   scale_x_date(date_breaks = "1 month", date_minor_breaks = "1 week", date_labels = "%b-%y") +
   scale_y_continuous(breaks = seq(0.1, 1, 0.1), labels = scales::percent)
+
+final_plot
 
 dev.off()
