@@ -30,15 +30,15 @@ data <- read_csv(data.file, skip = 0) # download from AdWords interface in CSV f
 # convert Impression share strings to percentages
 data$`Impression share` = as.numeric(sub("%", "", data$`Impression share`))/100
 # order URL levels reverse order alphabetically
-data$`Shop display name` <- factor(data$`Shop display name`, 
-                                    levels = rev(unique(data$`Shop display name`)))
+data$`Display URL domain` <- factor(data$`Display URL domain`, 
+                                    levels = rev(unique(data$`Display URL domain`)))
 
 # replace "You" with brand name
-levels(data$`Shop display name`)[levels(data$`Shop display name`)=="You"] <- brand.name
+levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="You"] <- brand.name
 
 
 # EXCLUDE COMPETITORS
-#levels(data$`Shop display name`)[levels(data$`Shop display name`)=="exclude.com"] <- NA
+#levels(data$`Display URL domain`)[levels(data$`Display URL domain`)=="exclude.com"] <- NA
 
 
 # convert month strings to date
